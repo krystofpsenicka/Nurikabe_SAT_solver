@@ -28,31 +28,31 @@ To represent the decision problem if there is a solution to the Nurikabe puzzle,
 
 - **Hints**: All numbered cells have to be white.
     - If a cell is numbered, it must be white.
-        $$ \neg p_{i,j} \quad \text{for each numbered cell } (i,j) $$
+        $$\neg p_{i,j} \quad \text{for each numbered cell } (i,j) $$
     - It is island-reachable from itself.
-        $$ island\_reachable(i, j, i, j) \quad \text{for each numbered cell } (i,j) $$
+        $$island\_reachable(i, j, i, j) \quad \text{for each numbered cell } (i,j) $$
     - All adjacent cells must be black.
-        $$ p_{i',j'} \quad \text{for each cell } (i',j') \text{ adjacent to a numbered cell } (i,j) $$
+        $$p_{i',j'} \quad \text{for each cell } (i',j') \text{ adjacent to a numbered cell } (i,j) $$
     - Exactly one adjacent cell is white for cells numbered 2. (In each pair of adjacent cells at least one cell is black)
         $$\bigwedge_{(i',j') \neq (i'', j'') \text{ adjacent to } (i,j)} (p_{i',j'} \lor p_{i', j'}) \quad \text{for each cell } (i,j) \text{ numbered 2} $$
     - All non-adjacent cells must be island-unreachable.
-        $$ \neg island\_reachable(i, j, k, l) \quad \text{for each cell } (k,l) \text{ not adjacent to } (i,j) $$
+        $$\neg island\_reachable(i, j, k, l) \quad \text{for each cell } (k,l) \text{ not adjacent to } (i,j) $$
 
 - **Island Reachability**: If a non-numbered cell is white, it has to be island-reachable from a cell numbered 2.
     - For each non-numbered cell, if it is white, there must be a path to a cell numbered 2.
-        $$ \neg p_{i,j} \implies \bigvee_{(k,l) \text{ numbered 2}} island\_reachable(i, j, k, l) $$
+        $$\neg p_{i,j} \implies \bigvee_{(k,l) \text{ numbered 2}} island\_reachable(i, j, k, l) $$
 
 - **No 2x2 Block of Black Cells**: There must not be any 2x2 block of black cells.
     - For each 2x2 block of cells, at least one cell must be white.
-        $$ \neg (p_{i,j} \wedge p_{i+1,j} \wedge p_{i,j+1} \wedge p_{i+1,j+1}) \quad \text{for each } (i,j) $$
+        $$\neg (p_{i,j} \wedge p_{i+1,j} \wedge p_{i,j+1} \wedge p_{i+1,j+1}) \quad \text{for each } (i,j) $$
 
 - **Sea Connectivity**: The sea (black cells) must be contiguous.
     - For each pair of black cells, there must be a path between them.
-        $$ \bigwedge_{(i,j),(k,l)} (p_{i,j} \wedge p_{k,l}) \implies \bigvee_{\text{path\_variables(i, j, k, l)}} path\_var $$
+        $$\bigwedge_{(i,j),(k,l)} (p_{i,j} \wedge p_{k,l}) \implies \bigvee_{\text{path\_variables(i, j, k, l)}} path\_var $$
     - Path variables ensure that if all cells on the path are black, the path variable is true.
-        $$ path\_variables(i, j, k, l) \implies \bigwedge_{(m,n) \text{ on path}} p_{m,n} $$
+        $$path\_variables(i, j, k, l) \implies \bigwedge_{(m,n) \text{ on path}} p_{m,n} $$
     - Path variables ensure that if any cell on the path is white, the path variable is false.
-        $$ \neg path\_variables(i, j, k, l) \implies \bigvee_{(m,n) \text{ on path}} \neg p_{m,n} $$
+        $$\neg path\_variables(i, j, k, l) \implies \bigvee_{(m,n) \text{ on path}} \neg p_{m,n} $$
 
 ## User documentation
 
